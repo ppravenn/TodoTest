@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .cf::after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+
+        button {
+            border: none;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        #todo {
+            max-width: 1000px;
+            margin: 50px auto;
+        }
+
+        #todo>form>button {
+            float: right;
+        }
+
+        #text {
+            float: left;
+            width: 85%;
+            padding: 20px 0;
+            padding-left: 20px;
+            border-radius: 20px;
+            border: 1px solid mediumspringgreen;
+            margin-bottom: 20px;
+        }
+
+        #todo button {
+            width: 10%;
+            border-radius: 0 10px 10px 0;
+        }
+
+        #depth1>li {
+            float: left;
+            width: 100%;
+
+        }
+
+        #depth1>li>p {
+            width: 85%;
+            float: left;
+            padding: 15px 0;
+            padding-left: 20px;
+            border: 1px solid #000;
+            border-radius: 10px;
+            cursor: pointer;
+
+        }
+
+        #depth1>li>p.on {
+            text-decoration: line-through;
+        }
+
+        .lists>#depth1>li>.btn {
+            float: right;
+            padding: 15px 0;
+            background: red;
+            margin-bottom: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>ToDo 리스트</h1>
+    <div id="todo" class="cf">
+        <form class="cf">
+            <input type="text" id="text">
+            <button type="button" onclick="abc()">입력</button>
+        </form>
+
+        <div class="lists">
+
+        </div>
+
+    </div>
+    <script>
+        var textbox = []
+
+        function abc() {
+            var texts = document.querySelector('#text').value;
+            if (texts != "") {
+                textbox.push(texts)
+            }
+            text1()
+            console.log(textbox)
+        }
+
+        function text1() {
+            list = "<ul id='depth1' class='cf'>"
+            for (let i in textbox) {
+                list +=
+                    "<li class='cf'><p>" + textbox[i] + "</p><button class='btn' id='" + i +
+                    "' type='button'>삭제</button></li>"
+            }
+            list += "</ul>"
+            document.querySelector('.lists').innerHTML = list
+
+            let deleteButtons = document.querySelectorAll(".btn");
+            for (let i = 0; i < deleteButtons.length; i++) {
+
+                deleteButtons[i].addEventListener("click", deleteItem);
+            }
+
+
+            function deleteItem() {
+                var id = this.getAttribute("id");
+                textbox.splice(id, 1);
+                text1()
+            }
+        
+            var line = document.querySelectorAll('#depth1>li>p')
+        for(let i in line){
+          line[i].addEventListener('click', function(){
+            var coin = line[i].className
+            if(coin!='on'){
+                line[i].className= 'on'
+            }else{
+                line[i].className= ''
+            }
+          })
+
+        }
+
+        }
+
+      
+       
+      
+    </script>
+</body>
+
+</html>
